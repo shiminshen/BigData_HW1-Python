@@ -18,18 +18,21 @@ def loadTaxiData():
             ]
     matrixs = []
     print('Loading Data')
+    # load all csv files
     for fileName in fileNames:
         # read original data
         data = pd.read_csv(fileName)
+        matrixs.append(data)
 
-        # split pickup time to year, month, day, hour, minute, second
-        pickupTime = data['tpep_pickup_datetime'].str.split('[: -]').apply(pd.Series,1)
-        # change type of data columes
-        pickupTime[[0,1,2,3,4,5]] = pickupTime[[0,1,2,3,4,5]].astype(int)
-        # change column names
-        pickupTime.columns = ['pYear', 'pMonth', 'pDay', 'pHour', 'pMinute', 'pSecond']
+    newData = pd.concat(matrixs)
+    # split pickup time to year, month, day, hour, minute, second
+    pickupTime = newData['tpep_pickup_datetime'].str.split('[: -]').apply(pd.Series,1)
+    # change type of data columes
+    pickupTime[[0,1,2,3,4,5]] = pickupTime[[0,1,2,3,4,5]].astype(int)
+    # change column names
+    pickupTime.columns = ['pYear', 'pMonth', 'pDay', 'pHour', 'pMinute', 'pSecond']
 
-        newData = data.join(pickupTime)
+    newData = newData.join(pickupTime)
 
     return newData
 
