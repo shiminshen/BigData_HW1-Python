@@ -8,21 +8,25 @@ def loadTaxiData():
 
     """
     fileNames = [ 
-            './data/test.csv'
-            # './data/yellow_tripdata_2015-07.csv' ,
-            # './data/yellow_tripdata_2015-08.csv' ,
-            # './data/yellow_tripdata_2015-09.csv' ,
+            # './data/sampled.csv'
+            './data/yellow_tripdata_2015-07.csv' ,
+            './data/yellow_tripdata_2015-08.csv' ,
+            './data/yellow_tripdata_2015-09.csv' ,
             # './data/yellow_tripdata_2015-10.csv' ,
             # './data/yellow_tripdata_2015-11.csv' ,
             # './data/yellow_tripdata_2015-12.csv'
             ]
     matrixs = []
+    chunkSize = 2 ** 100
     print('Loading Data')
     # load all csv files
     for fileName in fileNames:
         # read original data
-        data = pd.read_csv(fileName)
-        matrixs.append(data)
+        for chunk in pd.read_csv(fileName, chunksize=chunkSize):
+            matrixs.append(chunk)
+        print(fileName + ' loaded')
+
+
 
     newData = pd.concat(matrixs)
     # split pickup time to year, month, day, hour, minute, second
