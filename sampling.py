@@ -10,10 +10,10 @@ def sampling():
             # './data/test.csv',
             './data/yellow_tripdata_2015-07.csv' ,
             './data/yellow_tripdata_2015-08.csv' ,
-            # './data/yellow_tripdata_2015-09.csv' ,
-            # './data/yellow_tripdata_2015-10.csv' ,
-            # './data/yellow_tripdata_2015-11.csv' ,
-            # './data/yellow_tripdata_2015-12.csv'
+            './data/yellow_tripdata_2015-09.csv' ,
+            './data/yellow_tripdata_2015-10.csv' ,
+            './data/yellow_tripdata_2015-11.csv' ,
+            './data/yellow_tripdata_2015-12.csv'
             ]
     # useless columns in data
     uselessColums = [
@@ -29,6 +29,7 @@ def sampling():
             ]
     matrixs = []
     chunkSize = 2 ** 100
+    sampleNum = 50000
     print('Loading Data')
     # load all csv files
     for fileName in fileNames:
@@ -36,11 +37,11 @@ def sampling():
         for chunk in pd.read_csv(fileName, chunksize=chunkSize):
             matrixs.append(chunk)
             chunk = chunk.drop(uselessColums, axis=1)
-            matrixs.append(chunk.sample(1000000))
+            matrixs.append(chunk.sample(sampleNum))
         print(fileName + ' loaded')
 
     newData = pd.concat(matrixs)
-    newData.to_csv('./data/sampled.csv')
+    newData.to_csv('./data/' + str(sampleNum) + 'sampled.csv')
 
     return newData
 
