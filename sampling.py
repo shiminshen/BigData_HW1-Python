@@ -29,15 +29,17 @@ def sampling():
             ]
     matrixs = []
     chunkSize = 2 ** 100
-    sampleNum = 50000
+    sampleNum = 10000
     print('Loading Data')
     # load all csv files
     for fileName in fileNames:
         # read original data
+        chunks = []
         for chunk in pd.read_csv(fileName, chunksize=chunkSize):
-            matrixs.append(chunk)
             chunk = chunk.drop(uselessColums, axis=1)
-            matrixs.append(chunk.sample(sampleNum))
+            chunks.append(chunk)
+
+        matrixs.append(pd.concat(chunks).sample(sampleNum))
         print(fileName + ' loaded')
 
     newData = pd.concat(matrixs)
