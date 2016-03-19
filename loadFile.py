@@ -8,10 +8,10 @@ def loadTaxiData():
 
     """
     fileNames = [ 
-            # './data/sampled.csv'
+            # './data/10000sampled.csv'
             './data/yellow_tripdata_2015-07.csv' ,
-            './data/yellow_tripdata_2015-08.csv' ,
-            './data/yellow_tripdata_2015-09.csv' ,
+            # './data/yellow_tripdata_2015-08.csv' ,
+            # './data/yellow_tripdata_2015-09.csv' ,
             # './data/yellow_tripdata_2015-10.csv' ,
             # './data/yellow_tripdata_2015-11.csv' ,
             # './data/yellow_tripdata_2015-12.csv'
