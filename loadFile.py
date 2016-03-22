@@ -8,8 +8,9 @@ def loadTaxiData():
 
     """
     fileNames = [ 
-            # './data/10000sampled.csv'
-            './data/yellow_tripdata_2015-07.csv' ,
+            # './data/0.005sampled.csv'
+            './data/0.05sampled.csv'
+            # './data/yellow_tripdata_2015-07.csv' ,
             # './data/yellow_tripdata_2015-08.csv' ,
             # './data/yellow_tripdata_2015-09.csv' ,
             # './data/yellow_tripdata_2015-10.csv' ,
@@ -29,6 +30,7 @@ def loadTaxiData():
 
 
     newData = pd.concat(matrixs)
+    print('Concat Complete')
     # split pickup time to year, month, day, hour, minute, second
     pickupTime = newData['tpep_pickup_datetime'].str.split('[: -]').apply(pd.Series,1)
     # change type of data columes
@@ -37,6 +39,7 @@ def loadTaxiData():
     pickupTime.columns = ['pYear', 'pMonth', 'pDay', 'pHour', 'pMinute', 'pSecond']
 
     newData = newData.join(pickupTime)
+    print('Format Complete')
 
     return newData
 

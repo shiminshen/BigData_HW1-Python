@@ -20,7 +20,7 @@ inlier_mask = model_ransac.inlier_mask_
 outlier_mask = np.logical_not(inlier_mask)
 
 # Predict data of estimated models
-line_X = np.arange(-5, 50)
+line_X = np.arange(-5, 500)
 line_y = model.predict(line_X[:, np.newaxis])
 line_y_ransac = model_ransac.predict(line_X[:, np.newaxis])
 
@@ -34,3 +34,4 @@ plt.plot(line_X, line_y, '-k', label='Linear regressor')
 plt.plot(line_X, line_y_ransac, '-b', label='RANSAC regressor')
 plt.legend(loc='lower right')
 plt.show()
+plt.savefig('question4.png')

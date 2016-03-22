@@ -13,6 +13,7 @@ wData = loadWeatherData()
 # change column names of weather data for merging with taxi data
 wData.columns = ['pYear', 'pMonth', 'pDay', 'maxTemp', 'minTemp', 'rain', 'snow', 'wetGround']
 
-formatedData = pd.merge(dailyPassengerData, wData, on=['pYear', 'pMonth', 'pDay'])
+dailyPassengerData.join(wData, on=['pYear', 'pMonth', 'pDay'])
 
-print(formatedData)
+print(len(dailyPassengerData))
+

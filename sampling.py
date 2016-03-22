@@ -6,8 +6,6 @@ def sampling():
 
     """
     fileNames = [ 
-            # './data/test.csv',
-            # './data/test.csv',
             './data/yellow_tripdata_2015-07.csv' ,
             './data/yellow_tripdata_2015-08.csv' ,
             './data/yellow_tripdata_2015-09.csv' ,
@@ -18,6 +16,7 @@ def sampling():
     # useless columns in data
     uselessColums = [
             'RatecodeID',
+            'tpep_dropoff_datetime',
             'store_and_fwd_flag',
             'payment_type',
             'fare_amount',
@@ -29,7 +28,7 @@ def sampling():
             ]
     matrixs = []
     chunkSize = 2 ** 100
-    sampleNum = 10000
+    sampleNum = 1000000
     print('Loading Data')
     # load all csv files
     for fileName in fileNames:
@@ -39,11 +38,11 @@ def sampling():
             chunk = chunk.drop(uselessColums, axis=1)
             chunks.append(chunk)
 
-        matrixs.append(pd.concat(chunks).sample(sampleNum))
+        matrixs.append(pd.concat(chunks).sample(frac=0.05))
         print(fileName + ' loaded')
 
     newData = pd.concat(matrixs)
-    newData.to_csv('./data/' + str(sampleNum) + 'sampled.csv')
+    newData.to_csv('./data/' + str(0.05) + 'sampled.csv')
 
     return newData
 
